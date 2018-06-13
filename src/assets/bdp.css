@@ -1,0 +1,165 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  outline: 0; }
+  .modal.show {
+    display: block; }
+  .modal.left.show, .modal.right.show {
+    display: flex; }
+  .modal.left .modal-dialog, .modal.right .modal-dialog {
+    margin: 0; }
+    .modal.left .modal-dialog.lg, .modal.right .modal-dialog.lg {
+      width: 400px; }
+    .modal.left .modal-dialog.sm, .modal.right .modal-dialog.sm {
+      width: 300px; }
+    .modal.left .modal-dialog .modal-content, .modal.right .modal-dialog .modal-content {
+      height: 100vh;
+      border: none;
+      border-radius: 0;
+      box-sizing: border-box; }
+  .modal.right {
+    flex-direction: row-reverse; }
+  .modal .modal-dialog {
+    height: 100vh;
+    position: relative;
+    width: auto;
+    margin: .5rem;
+    pointer-events: none;
+    max-width: 700px;
+    margin: 4.75rem auto; }
+    .modal .modal-dialog .modal-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      pointer-events: auto;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: .3rem;
+      outline: 0; }
+      .modal .modal-dialog .modal-content .modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid #e9ecef;
+        border-top-left-radius: .3rem;
+        border-top-right-radius: .3rem; }
+        .modal .modal-dialog .modal-content .modal-header .modal-close {
+          cursor: pointer; }
+      .modal .modal-dialog .modal-content .modal-body {
+        overflow-y: auto;
+        position: relative;
+        flex: 1 1 auto;
+        padding: 1rem; }
+      .modal .modal-dialog .modal-content .modal-footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 1rem;
+        border-top: 1px solid #e9ecef; }
+        .modal .modal-dialog .modal-content .modal-footer button {
+          margin: 0 7px; }
+        .modal .modal-dialog .modal-content .modal-footer .btn-group {
+          margin: 0; }
+
+.modal-back {
+  opacity: .5;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000; }
+
+@charset "UTF-8";
+.text-fill {
+  background: -webkit-linear-gradient(left, #b4e2f0, #15a1d8);
+  -webkit-background-clip: text;
+  /* 规定背景的划分区域 */
+  -webkit-text-fill-color: transparent;
+  /* 防止字体颜色覆盖 */
+  font-style: italic; }
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  list-style: none;
+  background-color: #e9ecef;
+  border-radius: .25rem; }
+  .breadcrumb .breadcrumb-item:not(:first-child)::before {
+    display: inline-block;
+    padding-right: .5rem;
+    padding-left: .5rem;
+    color: #6c757d;
+    content: "/"; }
+  .breadcrumb .breadcrumb-item:not(:first-child) a.router-link-exact-active {
+    color: #6c757d; }
+
+.drop-down {
+  display: inline-block;
+  position: relative; }
+  .drop-down .drop-button {
+    cursor: pointer;
+    font-size: 14px; }
+    .drop-down .drop-button::after {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-left: .255em;
+      vertical-align: .255em;
+      content: " ";
+      border-top: .3em solid;
+      border-right: .3em solid transparent;
+      border-bottom: 0;
+      border-left: .3em solid transparent; }
+  .drop-down .drop-down-menu {
+    transform: translate3d(0px, 38px, 0px);
+    top: 0px;
+    left: 0px;
+    will-change: transform;
+    z-index: 1000;
+    float: left;
+    min-width: 10rem;
+    padding: .18rem 0;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: .25rem;
+    display: none;
+    position: absolute; }
+    .drop-down .drop-down-menu .drop-down-item {
+      display: block;
+      padding: .25rem 1.5rem;
+      clear: both;
+      font-weight: 400;
+      color: #212529;
+      text-align: inherit;
+      white-space: nowrap;
+      background-color: transparent;
+      border: 0; }
+      .drop-down .drop-down-menu .drop-down-item a {
+        color: #16181b; }
+      .drop-down .drop-down-menu .drop-down-item:hover {
+        background: #f8f9fa;
+        color: #16181b; }
+        .drop-down .drop-down-menu .drop-down-item:hover a {
+          color: #16181b; }
+  .drop-down.show .drop-down-menu {
+    display: block;
+    cursor: pointer; }
+
