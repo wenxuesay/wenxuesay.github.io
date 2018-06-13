@@ -1,4 +1,4 @@
-# wenxuesay.github.io
+# wenxuesay.github.io  笔记
 # 关于数值的扩展：逐步减少全局性方法，使得语言逐步模块化
 取整：Number.parseInt('12.34')   12
  Number.parseFloat('12.45#') //12.45
