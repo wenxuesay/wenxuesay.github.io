@@ -35,3 +35,8 @@ Object.assign
 Object.assign([1, 2, 3], [4, 5]) // [4, 5, 3]
 
 Object.values()
+
+# reduce的使用(使用范围数组求和)
+let a  = [,1,2,3,5];
+let sum = (a,b)=>a+b;
+a.reduce(sum,0); //11
