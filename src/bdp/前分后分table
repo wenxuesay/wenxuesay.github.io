@@ -1,0 +1,251 @@
+<template>
+<div class="sf-table" v-loading="loading">
+  <!-- :prop="column.prop" -->
+  <!-- :sortable="column.sortable" -->
+  <el-table
+      :data="filteData" 
+      border="border" 
+      @sort-change="sortable"
+      @selection-change="selectionChange"
+      ref="multipleTable"
+      show-overflow-tooltip="true" :default-sort ="tableSearch.sortable">
+      <el-table-column v-if="tableSearch.selection" type="selection"></el-table-column>
+      <slot name="a"></slot>
+      <el-table-column
+        v-for="(column,i) in tColumns"
+        :key="column.prop"
+        :prop="column.prop"
+        :label="column.label"
+        :sortable="column.sortable"
+        min-width="100px" :width="column.width">
+         <template slot-scope="scope">         
+            <a v-if="scope.row[column.prop]&&scope.row[column.prop].type==='a'" 
+            @click="tttclick(scope.row[column.prop])">{{ scope.row[column.prop].value }}</a>         
+            <span v-else>{{scope.row[column.prop]}}</span>
+         </template>
+          <!-- template(slot-scope='scope')
+          span(v-html="scope.row[column.prop]") -->
+         <!-- <template slot-scope="scope">          
+            <div v-html="scope.row[column.prop]" />
+         </template> -->
+      </el-table-column>
+      <slot name="actions"></slot>
+    </el-table>
+      <el-pagination 
+     v-if="tableSearch.pagination? true : false"
+     @size-change="handleSizeChange"
+     @current-change="handleCurrentChange" 
+     :current-page.sync = "tableSearch.currentpage"
+     :page-size="tableSearch.pageSize"
+     layout="total, prev, pager, next"
+     :total="tableSearch ? tableSearch.total : 1" >
+    </el-pagination>
+</div>
+<!-- <div class="sf-table-top">
+  <div class="sf-table">
+    <el-table :data="tData" border="border" @sort-change="sortable" @selection-change="selectionChange" ref="multipleTable" show-overflow-tooltip="true">
+      <el-table-column v-if="tableSearch && Array.isArray(tableSearch.selection)" type="selection"></el-table-column>
+      <slot name="a"></slot>
+      <el-table-column v-for="column in tColumns" :key="column.prop" :prop="column.prop" :label="column.label" min-width="100px"></el-table-column>
+      <slot name="actions"></slot>
+    </el-table>
+    <el-pagination v-if="tableSearch && tableSearch.pageSize" @size-change="handleSizeChange"
+     @current-change="handleCurrentChange" :page-sizes= "[10, 20, 50]" layout="prev, pager, next"
+    :page-size="tableSearch.pageSize" :total="tableSearch ? tableSearch.total : 0" >
+    </el-pagination>
+  </div>
+</div> -->
+</template>
+
+<script>
+export default {
+    props: ['title', 'tColumns', 'tData', 'excel', 'tableSearch'],
+    data () {
+        return {
+            loading: true,
+            aa: []
+        };
+    },
+    computed: {
+        filteData () {
+            // console.log(this.tData, 99999);
+            this.aa = [...this.tData];
+            if (this.aa !== this.tData) {
+                this.loading = false;
+            }
+            if (this.tableSearch.isRemote) {
+                return this.tData.slice(this.tableSearch.pageSize * (this.tableSearch.currentPage - 1), this.tableSearch.pageSize * this.tableSearch.currentPage);
+            }
+            return this.tData;
+        }
+    },
+    methods: {
+        tttclick (obj) {
+            obj.onClick();
+            // console.log(obj);
+        },
+        clickscope (index, row) {
+            this.$emit('dataScope', {
+                datasope: row
+            });
+        },
+        handleSizeChange (val) {
+            this.tableSearch.pageSize = val;
+        },
+        handleCurrentChange (val) {
+            this.loading = true;
+            this.tableSearch.currentPage = val;
+            this.$emit('searchData', {
+                page: val
+            });
+        },
+        searchAction () {
+            this.$emit('search', {
+                key: this.select.selected,
+                value: this.filter
+            });
+        },
+        selectionChange (val) {
+            this.tableSearch.selection = val;
+        },
+        sortable (val) {
+            this.loading = true;
+            this.$emit('searchData', {
+                order: val.order
+            });
+            this.tableSearch.order = val.order;
+            this.tableSearch.prop = val.prop;
+        },
+        buttonClick (type) {
+            this.$emit('search', {
+                type: 'button',
+                text: type
+            });
+        },
+        restSearch () {
+            this.$emit('search', {
+                type: 'restSearch'
+            });
+        },
+        handleIconClick () {
+            this.$emit('search', {
+                type: 'keyWordChange'
+            });
+        },
+        exportExcel () {
+            this.$emit('search', { type: 'excel', name: this.excel });
+        }
+    },
+    watch: {
+        // tColumns: {
+        //     handler () {
+        //         console.log(this.tColumns, 6666);
+        //     }
+        // },
+        'tableSearch.selection': {
+            handler () {
+                if (this.tableSearch.selection.length === 0) {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
+            deep: true
+        },
+        'tableSearch.currentPage': {
+            handler () {
+                if (this.tableSearch.selection.length === 0) {
+                    this.$refs.multipleTable.clearSelection();
+                }
+                this.$emit('search', {});
+            },
+            deep: true
+        },
+        'tableSearch.pageSize': {
+            handler () {
+                if (this.tableSearch.selection.length === 0) {
+                    this.$refs.multipleTable.clearSelection();
+                }
+                this.$emit('search', {});
+            },
+            deep: true
+        }
+    }
+};
+</script>
+
+<style lang="less">
+.sf-table {
+    border-radius: 4px;
+    .el-table::before{
+          background-color: transparent;
+    }
+     .el-table--border::after, .el-table--group::after{
+          background-color: transparent;
+   }
+    .el-pagination {
+        padding:18px 0;
+        text-align: right;
+        input {
+            line-height:26px;
+        }
+       .btn-prev {
+            border: 1px solid #d6d6d6;
+            border-right: none;
+            padding-right: 5px;
+        }
+        .btn-next {
+            border: 1px solid #d6d6d6;
+            border-left: none;
+             padding-left: 5px;
+        }
+        .el-pager {
+            .number {
+                border: 1px solid #d6d6d6;
+                color: #656565;
+                font-weight: 100;
+                border-right: none;
+                &:last-child {
+                    border-right: 1px solid #d6d6d6;
+                }
+                &:hover,&.active {
+                    color: #fff;
+                    background: #20a0ff;
+                }
+            }
+        }
+    }
+}
+.el-table td, .el-table th.is-leaf{
+   border: none;
+}
+.el-table--border{
+    border: 0 !important;
+}
+ .el-table--border td{
+        border: 0 !important;
+    }
+.el-table {
+  th {
+    background-color: #F2F2F2 !important;
+    padding: 5px 0;
+    min-width: 120px;
+    &>.cell {
+        text-align: center;
+        color: #333;
+        // font-weight: bold;
+        .el-checkbox {
+            padding-left: 6px;
+        }
+        white-space: nowrap;
+    }
+  }
+  td {
+    padding: 7px;
+    border-color: #efefef;
+    text-align: center !important;
+    button {
+      padding: 3px 10px;
+      font-size: 10px;
+    }
+  }
+}
+</style>
