@@ -30,3 +30,6 @@ F9 设置或删除断点
 Ctrl + = 放大字体   
 Ctrl + - 缩小字体   
 Ctrl + k,然后等待第二个按键，是一种组合使用，一般可以是Ctrl +k，s 来保存所有编辑过的文件，如果你同时编辑了好多文件的话。
+
+# Vscode插件
+https://www.cnblogs.com/sybboy/p/8989342.html
