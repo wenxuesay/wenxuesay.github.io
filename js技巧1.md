@@ -6,7 +6,7 @@ toDecimalMark(12305030388.9087); // "12,305,030,388.909"
 const deepFlatten = arr => [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)));
 deepFlatten([1, [2], [[3], 4], 5]); // [1,2,3,4,5]
 
-#过滤对象数组
+# 过滤对象数组
 const reducedFilter = (data, keys, fn) =>data.filter(fn).map(el =>keys.reduce((acc, key) => {acc[key] =el[key];return acc;}, {}));
 const data = [
   {
@@ -23,7 +23,7 @@ const data = [
 
 let a = reducedFilter(data, ['id', 'name'], item => item.age > 24); // [{ id: 2, name: 'mike'}]
 
-#数组对象去重
+# 数组对象去重
 const uniqueElementsBy = (arr, fn) =>arr.reduce((acc, v) => {if (!acc.some(x => fn(v, x))) acc.push(v);return acc;}, []);
 
 uniqueElementsBy([{id: 1, name: 'Jhon'}, {id: 2, name: 'sss'}, {id: 1, name: 'Jhon'}], (a, b) => a.id == b.id)
