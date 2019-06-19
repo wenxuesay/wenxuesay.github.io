@@ -32,3 +32,30 @@ uniqueElementsBy([{id: 1, name: 'Jhon'}, {id: 2, name: 'sss'}, {id: 1, name: 'Jh
 # 获取数组交集
 const similarity = (arr, values) => arr.filter(v => values.includes(v));
 similarity([1, 2, 3], [1, 2, 4]); // [1,2]
+
+# js导出csv表格数据
+    handleClickexport() {
+        if (!this.prData || this.prData.length <= 0) {
+            this.$message({
+                message: '请先进行查询,并等待查询结果返回!',
+                type: 'error',
+            });
+            return;
+        }
+        let csvContent = 'data:text/csv;charset=utf-8,\ufeff';
+        const headerLabel = this.columnData.map((item) => item.label);
+        const headerProp = this.columnData.map((item) => item.prop);
+        csvContent += `${headerLabel}\n`;
+        console.log(this.columnData, 'this.columnData');
+        this.prData.forEach((item, index) => {
+            let dataString = '';
+            for (let i = 0; i < headerProp.length; i += 1) {
+                dataString += `${item[headerProp[i]]},`;
+            }
+            csvContent += index < this.prData.length ? dataString.replace(/,$/, '\n') : dataString.replace(/,$/, '');
+        });
+        console.log(csvContent, 'csvContent');
+        this.$refs.link.setAttribute('href', encodeURI(csvContent));
+        //fileName文件名称 例快件.csv
+        this.$refs.link.setAttribute('download', this.fileName);
+     }
