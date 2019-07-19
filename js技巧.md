@@ -17,3 +17,16 @@ const flatten = (origin) => origin.toString().split(',');  // ["1", "2", "3", "4
         return cStairs(n-1) + cStairs(n-2)
     }
 }
+# 获取地址栏问号后面的参数组成对象方式
+    let str = window.location.hash;
+    urlToObj(str) {
+                const obj = {};
+                const arr1 = str.split('?');
+                const arr2 = arr1[1].split('&');
+                for (let i = 0; i < arr2.length; i += 1) {
+                    const res = arr2[i].split('=');
+                    // eslint-disable-next-line prefer-destructuring
+                    obj[res[0]] = res[1];
+                }
+                return obj;
+       }
