@@ -30,3 +30,9 @@ const flatten = (origin) => origin.toString().split(',');  // ["1", "2", "3", "4
                 }
                 return obj;
        }
+  var url = "http://www.baidu.com?a=1&b=2&c=3" ;
+  urlToObj(url);
+  注：获取url信息，url = "http://www.baidu.com?a=1&b=2&c=3" ;
+  1. 设置或获取整个 URL 为字符串 ： window.location.href ；
+  2. 设置或获取 href 属性中跟在问号后面的部分 ： window.location.search ;
+  3. 设置或获取 URL 的协议部分 ： window.location.protocol ； //http:
