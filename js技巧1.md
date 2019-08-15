@@ -59,3 +59,6 @@ similarity([1, 2, 3], [1, 2, 4]); // [1,2]
         //fileName文件名称 例快件.csv
         this.$refs.link.setAttribute('download', this.fileName);
      }
+  # 获取数组交集
+    const similarity = (arr, values) => arr.filter(v => values.includes(v));
+    similarity([1, 2, 3], [1, 2, 4]); // [1,2]
