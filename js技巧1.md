@@ -62,3 +62,7 @@ similarity([1, 2, 3], [1, 2, 4]); // [1,2]
   # 获取数组交集
     const similarity = (arr, values) => arr.filter(v => values.includes(v));
     similarity([1, 2, 3], [1, 2, 4]); // [1,2]
+  # 统计字符串中相同字符出现的次数
+    var str = 'aaabbbccc66aabbc6';
+    var strInfo = str.split('').reduce((p, c) => (p[c]++ || (p[c] = 1), p), {});
+    console.log(strInfo); // {6: 3, a: 5, b: 5, c: 4}
