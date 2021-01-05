@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "autoprefixer": "^8.5.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "echarts": "^4.1.0",
     "echarts-gl": "^1.1.1",
     "element-ui": "^2.3.9",
